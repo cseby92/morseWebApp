@@ -1,0 +1,27 @@
+{
+  "name": "morsewebapp",
+  "version": "1.0.0",
+  "description": "task: https://github.com/drawain/node-school/tree/master/test-2016-spring",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "test": "mocha ./server"  
+	},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cseby92/morseWebApp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.12.3",
+    "express": "^4.12.3"
+  },
+  "devDependencies": {
+    "chai": "^2.3.0",
+    "mocha": "^2.2.4",
+    "supertest": "^0.15.0"
+  },
+  "homepage": "https://github.com/cseby92/morseWebApp#readme"
+ 
+ }
