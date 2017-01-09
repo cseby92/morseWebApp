@@ -4,6 +4,7 @@ const expect = require('chai').expect;
 const UserHandler = require('./userhandler');
 
 describe('UserHandler functions', () => {
+    
     let handler;
 
     beforeEach(() =>{
@@ -39,10 +40,15 @@ describe('UserHandler functions', () => {
         expect(handler.checkIfUserExists('bobbbbbbbbb')).to.eql(false);
     });
 
-    it('searchUserByAuth: should return true if user token exists', () => {
+    it('checkIfAuthExists: should return true if user token exists', () => {
         handler.addUser({username : 'bob', name: ''});
         expect(handler.checkIfAuthExists(UserHandler.encodeUserName('bob'))).to.eql(true);
         expect(handler.checkIfAuthExists(UserHandler.encodeUserName('bobbbbbb'))).to.eql(false);
+    });
+
+    it('searchUserByAuth: should return the username by token', () => {
+        handler.addUser({username : 'bob', name: ''});
+        expect(handler.searchUserByAuth(UserHandler.encodeUserName('bob'))).to.eql('bob');
     });
 
     it('addMessage: should return the username ', () =>{
@@ -53,5 +59,32 @@ describe('UserHandler functions', () => {
         expect(handler._users[0].messages[0]).to.eql({from : 'bob', to: 'John Doe', message : 'Hello John!'});
         expect(handler._users[1].messages[0]).to.eql({from : 'bob', to: 'John Doe', message : 'Hello John!'});
     });
+
+    it('getUserMessages: should return the sent and reviced messages for the given user',() => {
+        handler.addUser({username : 'bob', name: ''});
+        handler.addUser({username : 'john', name: 'John Doe'});
+        handler.addMessage('bob', 'john', 'Hello John!');
+        
+        expect(handler.getUserMessages('bob').length).to.eql(1);
+        expect(handler.getUserMessages('bob')).to.eql( [{from : 'bob', to: 'John Doe', message : 'Hello John!'}]);
+
+        handler.addMessage('bob', 'john', 'What\'s up?');
+
+        expect(handler.getUserMessages('bob').length).to.eql(2);
+        expect(handler.getUserMessages('bob')).to.eql( [
+                                                        {from : 'bob', to: 'John Doe', message : 'Hello John!'},
+                                                        {from : 'bob', to: 'John Doe', message : 'What\'s up?'}
+                                                        ]);
+
+
+    });
+
+    it('listUsers: should return the list of users', () =>{
+        handler.addUser({username : 'bob', name: ''});
+        handler.addUser({username : 'john', name: 'John Doe'});
+        expect(handler.listUsers()).to.eql([{username : 'bob', name: ''},{username : 'john', name: 'John Doe'}]);
+    });
+
+    
 });
 

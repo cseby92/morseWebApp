@@ -93,6 +93,25 @@ class UserHandler{
         return { from : senderName, to : targetName, message: msg };
     }
 
+    getUserMessages(usrName){
+        let retMsgs = [];
+        this._users.forEach((user) => {
+            if(user.username === usrName){
+                retMsgs =  user.messages;
+            }
+        });
+        return retMsgs;
+    }
+
+    listUsers(){
+        let retUsers = [];
+        this._users.forEach((user) => {
+            retUsers.push({username: user.username, name: user.name  });
+        });
+
+        return retUsers;
+    }
+
 
 }
 
