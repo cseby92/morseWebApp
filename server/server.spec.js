@@ -9,8 +9,8 @@ describe('Morse webapp', function () {
         app.init();
     });
 
-    describe('GET',  () => {
-        it('should return index.html for path: /',  (done) => {
+    describe('GET', () => {
+        it('should return index.html for path: /', (done) => {
             request(app)
                 .get('/')
                 .expect('Content-Type', /html/)
@@ -31,9 +31,9 @@ describe('Morse webapp', function () {
                         request(app)
                             .get('/users')
                             .expect(200)
-                            .end(function (err, res2){
-                                if(err) throw err;
-                                expect(res2.body).to.eql([{username : 'bob', name : ''}])
+                            .end(function (err, res2) {
+                                if (err) throw err;
+                                expect(res2.body).to.eql([{ username: 'bob', name: '' }])
                                 done();
                             });
                     });
@@ -94,24 +94,25 @@ describe('Morse webapp', function () {
                                     .end(function (err, res) {
                                         if (err) throw err;
                                         expect(res.body).to.eql([]);
-                                    });
-                                request(app)
-                                    .post('/users/bob/messages')
-                                    .set({ 'X-Auth': res2.body.token })
-                                    .send('message=.... . .-.. .-.. ---')
-                                    .end(function (err, res) {
-                                        if (err) throw err;
                                         request(app)
-                                            .get('/users/john/messages')
-                                            .set({ 'X-Auth': handler.encodeUserName('john') })
-                                            .expect(200)
+                                            .post('/users/bob/messages')
+                                            .set({ 'X-Auth': res2.body.token })
+                                            .send('message=.... . .-.. .-.. ---')
                                             .end(function (err, res) {
                                                 if (err) throw err;
-                                                expect(res.body).to.eql([{from : 'John Doe', to : 'bob', message : '.... . .-.. .-.. ---' }]);
-                                                done();
-                                            });
+                                                request(app)
+                                                    .get('/users/john/messages')
+                                                    .set({ 'X-Auth': handler.encodeUserName('john') })
+                                                    .expect(200)
+                                                    .end(function (err, res) {
+                                                        if (err) throw err;
+                                                        expect(res.body).to.eql([{ from: 'John Doe', to: 'bob', message: 'HELLO' }]);
+                                                        done();
+                                                    });
 
+                                            });
                                     });
+
                             });
                     });
             })

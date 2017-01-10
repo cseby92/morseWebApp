@@ -1,3 +1,5 @@
+'use strict'
+
 class UserHandler{
     constructor(){
         this._users = [];
@@ -58,6 +60,7 @@ class UserHandler{
                 messages : []
             });
         }
+        console.log(this._users);
     }
 
     addMessage(sender, target,msg){
