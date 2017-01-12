@@ -68,6 +68,7 @@ class CodeRepository {
         }
         throw new Error("Illegal morse character");
 
+
     }
 }
 

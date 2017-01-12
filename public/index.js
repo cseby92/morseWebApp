@@ -67,7 +67,7 @@ $(() => {
                     html += '<li>' + user.username +'</li>';
                 });
                 $('#leftside').append('<ul>' + html + '</ul>');
-                $('#leftside').append('<label> Click on user to send him the text </label> <input value="" id="textbox" />');   
+                $('#leftside').append('<label> Click on the user\'s name to send him the text </label> <input value="" id="textbox" />');   
                 $('li').click(function(){
                     sendMessage($(this).text(), $('#textbox').val());
                 })
@@ -88,9 +88,9 @@ $(() => {
 
         }).done( (data, textStatus, jqXHR) => {
             gnerateUi();
-            });
+            }).
           fail((jqXHR, textStatus, errorThrown) => {
-                    alert('FAIL');
+                alert('Please enter valid morse input');
             });
 
     };
