@@ -8,7 +8,7 @@ var UserHandler = require('./userhandler');
 var decoder = require('./morsedecoder');
 
 
-app.init = function () {
+app.init =  () =>  {
     app.handler = new UserHandler();
 };
 
@@ -16,7 +16,7 @@ app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-app.post('/users', function (req, res) {
+app.post('/users', (req, res) => {
     if (app.handler.checkIfUserExists(req.body.username)) {
         res.status(400).json();
     } else {
@@ -27,7 +27,7 @@ app.post('/users', function (req, res) {
     }
 });
 
-app.post('/users/:username/messages', function (req, res) {
+app.post('/users/:username/messages',  (req, res) => {
 
     if (!req.get('X-Auth') || !app.handler.checkIfAuthExists(req.get('X-Auth'))) {
         res.status(401).json();

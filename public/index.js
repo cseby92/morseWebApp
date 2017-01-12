@@ -12,7 +12,6 @@ $(() => {
             .done(( data, textStatus, jqXHR ) => { 
                 myToken = data.token;
                 myUserName = $('#username').val();
-                alert(myToken);
                 gnerateUi();
             })
             .fail(( jqXHR, textStatus, errorThrown )  =>{
@@ -39,7 +38,7 @@ $(() => {
         
     }
 
-    let generateRight = function(){
+    let generateRight = () => {
         $.ajax({ 
             url : 'http://localhost:3000/users/' + myUserName + '/messages',
             type : 'get',
@@ -60,7 +59,7 @@ $(() => {
             });
     }
 
-    let generateLeft = function(){
+    let generateLeft = () => {
         $.get('http://localhost:3000/users')
             .always((data, textStatus, jqXHR) => {
                 let html = '';
@@ -75,7 +74,7 @@ $(() => {
             });
     }
 
-    let sendMessage = function(to, msg){
+    let sendMessage = (to, msg) => { 
         $.ajax({ 
             url : 'http://localhost:3000/users/' + to + '/messages',
             type : 'post',
@@ -89,8 +88,8 @@ $(() => {
 
         }).done( (data, textStatus, jqXHR) => {
             gnerateUi();
-            }).
-            fail((jqXHR, textStatus, errorThrown) => {
+            });
+          fail((jqXHR, textStatus, errorThrown) => {
                     alert('FAIL');
             });
 
