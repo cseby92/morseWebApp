@@ -57,7 +57,6 @@ app.get('/users/:username/messages', (req, res) => {
     else if(app.handler.searchUserByAuth(req.get('X-Auth')) !== req.params.username)
         res.status(403).json();
     else{
-        console.log(app.handler.getUserMessages(req.params.username));
         res.status(200).json(app.handler.getUserMessages(req.params.username));
 
     }

@@ -60,7 +60,6 @@ class UserHandler{
                 messages : []
             });
         }
-        console.log(this._users);
     }
 
     addMessage(sender, target,msg){
